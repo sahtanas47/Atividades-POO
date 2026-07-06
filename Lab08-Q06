@@ -1,0 +1,121 @@
+import random
+
+
+class Personagem:
+    def __init__(self, nome, vida):
+        self.nome = nome
+        self.vida = vida
+
+    def tomar_dano(self, valor):
+        self.vida -= valor
+
+
+class Mago(Personagem):
+    def __init__(self, nome, vida, mana):
+        super().__init__(nome, vida)
+        self.mana = mana
+
+    def __str__(self):
+        return f"Nome: {self.nome}\nVida: {self.vida}\nMana: {self.mana}"
+
+    def __add__(self, valor):
+        self.mana += valor
+        return self.mana
+
+    def __sub__(self, valor):
+        self.mana -= valor
+        if self.mana < 0:
+            self.mana = 0
+        return self.mana
+
+    def __mul__(self, valor):
+        self.mana *= valor
+        return self.mana
+
+    def __truediv__(self, valor):
+        self.mana /= valor
+        return self.mana
+
+
+class Barbaro(Personagem):
+    def __init__(self, nome, vida, stamina):
+        super().__init__(nome, vida)
+        self.stamina = stamina
+        self.furia = False
+
+    def __str__(self):
+        return f"Nome: {self.nome}\nVida: {self.vida}\nStamina: {self.stamina}\nFúria: {self.furia}"
+
+    def __add__(self, valor):
+        if self.furia:
+            valor = valor * 1.5
+        self.stamina += valor
+        return self.stamina
+
+    def __sub__(self, valor):
+        self.stamina -= valor
+
+        if self.stamina <= 0 and self.furia == False:
+            self.furia = True
+            self.stamina = 5
+
+        return self.stamina
+
+    def __mul__(self, valor):
+        self.stamina *= valor
+
+        if self.furia:
+            self.vida += 5
+
+        return self.stamina
+
+    def __truediv__(self, valor):
+        self.stamina /= valor
+        return self.stamina
+
+
+tipo = input("Escolha (Mago/Barbaro): ")
+
+nome = input("Nome: ")
+vida = int(input("Vida: "))
+
+if tipo == "Mago":
+    mana = float(input("Mana: "))
+    personagem = Mago(nome, vida, mana)
+else:
+    stamina = float(input("Stamina: "))
+    personagem = Barbaro(nome, vida, stamina)
+
+
+while True:
+
+    print()
+    print(personagem)
+
+    print("\n1 - Poção simples")
+    print("2 - Poção especial")
+    print("3 - Ataque básico")
+    print("4 - Ataque especial")
+    print("0 - Sair")
+
+    opcao = int(input("Escolha: "))
+
+    if opcao == 0:
+        break
+
+    elif opcao == 1:
+        personagem + 5
+
+    elif opcao == 2:
+        personagem * 1.5
+
+    elif opcao == 3:
+        personagem - 2
+
+    elif opcao == 4:
+        personagem / 2
+
+    dano = random.randint(1, 10)
+    personagem.tomar_dano(dano)
+
+    print("Você recebeu", dano, "de dano.")
