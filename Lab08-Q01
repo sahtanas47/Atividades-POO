@@ -1,0 +1,14 @@
+class Carteira:
+    def __init__(self, moeda, saldo):
+        self.moeda = moeda
+        self.saldo = saldo
+
+    def __add__(self, valor_yuan):
+        if self.moeda == "USD":
+            valor = valor_yuan * 0.14
+        elif self.moeda == "BRL":
+            valor = valor_yuan * 0.85
+        else:
+            valor = valor_yuan
+
+        return self.saldo + valor
