@@ -1,0 +1,41 @@
+class Pessoa:
+    def __init__(self, nome, altura):
+        self.nome = nome
+        self.altura = altura
+
+    def __str__(self):
+        return f"{self.nome} - {self.altura} m"
+
+    def __gt__(self, outra):
+        return self.altura > outra.altura
+
+    def __lt__(self, outra):
+        return self.altura < outra.altura
+
+
+lista = []
+
+quantidade = int(input("Quantas pessoas deseja cadastrar? "))
+
+for i in range(quantidade):
+    nome = input("Nome: ")
+    altura = float(input("Altura: "))
+    pessoa = Pessoa(nome, altura)
+    lista.append(pessoa)
+
+print()
+
+print("Maior:")
+print(max(lista))
+
+print()
+
+print("Menor:")
+print(min(lista))
+
+print()
+
+print("Ordenadas:")
+
+for pessoa in sorted(lista):
+    print(pessoa)
